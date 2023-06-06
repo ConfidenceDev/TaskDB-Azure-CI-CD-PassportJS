@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taskdb-app
+spec:
+  selector:
+    matchLabels:
+      app: taskdb-app
+  template:
+    metadata:
+      labels:
+        app: taskdb-app
+    spec:
+      containers:
+        - name: taskdb-app
+          image: confidencedev/taskdb
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 4000
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          env:
+            - name: GOOGLE_CLIENT_ID
+              value: "45156854380-rm3b37ji31k8mkob8t65vv858uc8719m.apps.googleusercontent.com"
+            - name: GOOGLE_CLIENT_SECRET
+              value: "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"
+            - name: GITHUB_CLIENT_ID
+              value: "Iv1.cea1b92509f62d6a"
+            - name: GITHUB_CLIENT_SECRET
+              value: "2340dd84ba2dc54f8fc86a7d000a9ad53aedc844"
+            - name: SESSION_SECRET
+              value: "taskdb"
+            - name: DB_NAME
+              value: "taskdb"
+            - name: DB_USERNAME
+              value: "taskadmin@taskdbsvr"
+            - name: DB_PASSWORD
+              value: "Wondaful@17"
+            - name: DB_HOST
+              value: "taskdbsvr.postgres.database.azure.com"
+            - name: DB_DIALECT
+              value: "postgres"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: taskdb-svc
+spec:
+  selector:
+    app: creator-service-app
+  ports:
+    - port: 80
+      targetPort: 4000

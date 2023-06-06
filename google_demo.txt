@@ -1,0 +1,32 @@
+{
+  id: '114536310542348741763',
+  displayName: 'Confidence Eze',
+  name: { familyName: 'Eze', givenName: 'Confidence' },
+  emails: [ { value: 'confidostic3@gmail.com', verified: true } ],
+  photos: [
+    {
+      value: 'https://lh3.googleusercontent.com/a/AAcHTtexnh-tpCdZ6r6h7O2uNQQ00UfcVpX5i5n7tRoa-w=s96-c'
+    }
+  ],
+  provider: 'google',
+  _raw: '{\n' +
+    '  "sub": "114536310542348741763",\n' +
+    '  "name": "Confidence Eze",\n' +
+    '  "given_name": "Confidence",\n' +
+    '  "family_name": "Eze",\n' +
+    '  "picture": "https://lh3.googleusercontent.com/a/AAcHTtexnh-tpCdZ6r6h7O2uNQQ00UfcVpX5i5n7tRoa-w\\u003ds96-c",\n' +
+    '  "email": "confidostic3@gmail.com",\n' +
+    '  "email_verified": true,\n' +
+    '  "locale": "en"\n' +
+    '}',
+  _json: {
+    sub: '114536310542348741763',
+    name: 'Confidence Eze',
+    given_name: 'Confidence',
+    family_name: 'Eze',
+    picture: 'https://lh3.googleusercontent.com/a/AAcHTtexnh-tpCdZ6r6h7O2uNQQ00UfcVpX5i5n7tRoa-w=s96-c',
+    email: 'confidostic3@gmail.com',
+    email_verified: true,
+    locale: 'en'
+  }
+}
