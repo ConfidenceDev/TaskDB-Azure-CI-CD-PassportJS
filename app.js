@@ -12,7 +12,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
-  res.send("Welcome to TaskDB dashboard, see README.md file to use API");
+  console.log("Welcome to TaskDB dashboard, see README.md file to use API");
+  return res.status(200).json({
+    message: "Welcome to TaskDB dashboard, see README.md file to use API",
+  });
 });
 
 sequelize
