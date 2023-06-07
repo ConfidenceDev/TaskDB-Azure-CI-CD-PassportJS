@@ -25,14 +25,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Build and Push Docker Image
-        uses: mr-smithers-excellent/docker-build-push@v6
-        with:
-          image: confidencedev/taskdb
-          tags: latest
-          registry: docker.io
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+      # - name: Build and Push Docker Image
+      #   uses: mr-smithers-excellent/docker-build-push@v6
+      #   with:
+      #     image: confidencedev/taskdb
+      #     tags: latest
+      #     registry: docker.io
+      #     username: ${{ secrets.DOCKER_USERNAME }}
+      #     password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Install Azure CLI
         run: |
@@ -51,11 +51,41 @@ jobs:
         run: |
           sudo az aks install-cli
 
-      - name: Install secrets-store.csi.x-k8s.io CRDs
-        run: |
-          kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/secrets-store-csi-driver/v1.3.0/deploy/secrets-store.csi.x-k8s.io_secretproviderclasses.yaml
-          kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/secrets-store-csi-driver/v1.3.0/deploy/secrets-store.csi.x-k8s.io_secretproviderclasspodstatuses.yaml
+      - name: Get Azure Key Vault secrets
+        id: get_secrets
+        uses: azure/keyvault@1
+        with:
+          command: get
+          secrets: |
+            DB-DIALECT
+            DB-HOST
+            DM-NAME
+            DB-PASSWORD
+            DB-USERNAME
+            GITHUB-CLIENT-ID
+            GITHUB-CLIENT-SECRET
+            GOOGLE-CLIENT-ID
+            GOOGLE-CLIENT-SECRET
+            SESSION-SECRET
+          azSubscription: ${{ secrets.SUBSCRIPTION }}
+          azKeyVault: ${{ secrets.VAULT }}
+          azResourceGroup: ${{ secrets.GROUP }}
 
-      - name: Apply Kubernetes Deployment
+      - name: Use Key Vault secrets
         run: |
-          kubectl apply -f deployment.yml
+          echo "Secret 1: ${{ steps.get_secrets.outputs.DB-DIALECT }}"
+          echo "Secret 1: ${{ steps.get_secrets.outputs.DB-HOST }}"
+
+      # - name: Apply Secrets Deploy to Kubernetes
+      #   run: |
+      #     sed -e "s/{{${{ steps.get_secrets.outputs.DB-DIALECT }}}}/${DB-DIALECT}/g" \
+      #         -e "s/{{${{ steps.get_secrets.outputs.DB-HOST }}}}/${DB-HOST}/g" \
+      #         -e "s/{{${{ steps.get_secrets.outputs.DB-NAME }}}}/${DB-NAME}/g" \
+      #         -e "s/{{${{ steps.get_secrets.outputs.DB-PASSWORD }}}}/${DB-PASSWORD}/g" \
+      #         -e "s/{{${{ steps.get_secrets.outputs.DB-USERNAME }}}}/${DB-USERNAME}/g" \
+      #         -e "s/{{${{ steps.get_secrets.outputs.GITHUB-CLIENT-ID }}}}/${GITHUB-CLIENT-ID}/g" \
+      #         -e "s/{{${{ steps.get_secrets.outputs.GITHUB-CLIENT-SECRET }}}}/${GITHUB-CLIENT-SECRET}/g" \
+      #         -e "s/{{${{ steps.get_secrets.outputs.GOOGLE-CLIENT-ID }}}}/${GOOGLE-CLIENT-ID}/g" \
+      #         -e "s/{{${{ steps.get_secrets.outputs.GOOGLE-CLIENT-SECRET }}}}/${GOOGLE-CLIENT-SECRET}/g" \
+      #         -e "s/{{${{ steps.get_secrets.outputs.SESSION-SECRET }}}}/${SESSION-SECRET}/g" \
+      #         k8s/deployment.yaml | kubectl apply -f -
