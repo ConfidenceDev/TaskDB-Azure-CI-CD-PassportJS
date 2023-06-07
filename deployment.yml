@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: taskdb-app
 spec:
-  replica: 1
+  replicas: 1
   selector:
     matchLabels:
       app: taskdb-app
