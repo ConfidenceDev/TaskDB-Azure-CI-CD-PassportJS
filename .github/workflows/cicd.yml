@@ -32,18 +32,14 @@ jobs:
       - name: Azure Login
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-          
-      - name: Set up Azure CLI
+          client-id: '5b949fd9-aca7-47d2-ad52-72764eca04ab'
+          tenant-id: 'aea4de64-772e-46f6-84c3-a12ef6e8899c'
+          subscription-id: '86faab24-a754-426c-9e08-f54a249d5dba'
+  
+      - name: Azure CLI script
         uses: azure/CLI@v1
-
-      - name: Get AKS Credentials
-        run: az aks get-credentials --resource-group ${{ env.resourceGroup }} --name ${{ env.clusterName }}
-
-      - name: Install kubectl
-        run: |
-          sudo az aks install-cli
-
-      - name: Apply Kubernetes Deployment
-        run: |
-          kubectl apply -f deployment.yml 
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az account show
+            az group list
