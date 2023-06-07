@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: taskdb-app
 spec:
+  replica: 1
   selector:
     matchLabels:
       app: taskdb-app
@@ -14,7 +15,7 @@ spec:
       containers:
         - name: taskdb-app
           image: confidencedev/taskdb
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 4000
           resources:
@@ -49,6 +50,7 @@ kind: Service
 metadata:
   name: taskdb-svc
 spec:
+  type: LoadBalancer
   selector:
     app: creator-service-app
   ports:
