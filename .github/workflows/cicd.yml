@@ -47,35 +47,18 @@ jobs:
       - name: Get AKS Credentials
         run: az aks get-credentials --resource-group ${{ env.resourceGroup }} --name ${{ env.clusterName }}
 
-      - name: Install kubectl cli
+      - name: Retrieve secrets from Azure Key Vault
+        id: get-secrets
         run: |
-          sudo az aks install-cli
+          secrets=("DB-DIALECT")
+          for secret in "${secrets[@]}"; do
+            secretValue=$(az keyvault secret show --name "$secret" --vault-name ${{ secrets.VAULT }} --query 'value' -o tsv)
+            echo "::set-output name=$secret::$secretValue"
+          done
 
-      - name: Get Azure Key Vault secrets
-        id: get_secrets
-        uses: Azure/get-keyvault-secrets@v1
-        with:
-          # command: get
-          # secrets: |
-          #   DB-DIALECT
-          #   DB-HOST
-          #   DB-NAME
-          #   DB-PASSWORD
-          #   DB-USERNAME
-          #   GITHUB-CLIENT-ID
-          #   GITHUB-CLIENT-SECRET
-          #   GOOGLE-CLIENT-ID
-          #   GOOGLE-CLIENT-SECRET
-          #   SESSION-SECRET
-          secrets: "DB-DIALECT, DB-HOST"
-          keyvault: ${{ secrets.VAULT }}
-          # azSubscription: ${{ secrets.SUBSCRIPTION }}
-          # azResourceGroup: ${{ secrets.GROUP }}
-
-      - name: Use Key Vault secrets
+      - name: Use the retrieved secrets
         run: |
-          echo "Secret 1: ${{ steps.get_secrets.outputs.DB-DIALECT }}"
-          echo "Secret 1: ${{ steps.get_secrets.outputs.DB-HOST }}"
+          echo "Secret 1: ${{ steps.get-secrets.outputs.DB-DIALECT }}"
 
       # - name: Apply Secrets Deploy to Kubernetes
       #   run: |
