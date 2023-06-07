@@ -78,9 +78,6 @@ spec:
               mountPath: "/mnt/secrets-store"
               readOnly: true
       volumes:
-        - name: persistent-storage
-          persistentVolumeClaim:
-            claimName: pvc
         - name: secrets-store-inline
           csi:
             driver: secrets-store.csi.k8s.io
@@ -159,37 +156,6 @@ spec:
           objectType: secret
     tenantId: aea4de64-772e-46f6-84c3-a12ef6e8899c
     useVMManagedIdentity: "false"
-
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: pv
-spec:
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: manual
-  hostPath:
-    #    path: "/mnt/data"  # - for Unix/Linux
-    #    path: "/mnt/host"  # - for Others
-    #    path: "/run/desktop/mnt/data/c/temp/testfiles"   # - for Windows
-    path: "/mnt/data"
-    type: DirectoryOrCreate
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: pvc
-spec:
-  resources:
-    requests:
-      storage: 1Gi
-  storageClassName: manual
-  accessModes:
-    - ReadWriteOnce
 
 ---
 apiVersion: v1
