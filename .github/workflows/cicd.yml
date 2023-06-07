@@ -48,7 +48,7 @@ jobs:
         run: az aks get-credentials --resource-group ${{ env.resourceGroup }} --name ${{ env.clusterName }}
 
       - name: Install Azure Key Vault Secrets
-        uses: azure/azure-keyvault-secrets@1.0.1
+        uses: Azure/get-keyvault-secrets@v1
 
       # - name: Apply Secrets Deploy to Kubernetes
       #   run: |
