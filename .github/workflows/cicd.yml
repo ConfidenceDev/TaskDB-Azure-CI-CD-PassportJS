@@ -53,9 +53,9 @@ jobs:
 
       - name: Get Azure Key Vault secrets
         id: get_secrets
-        uses: azure/keyvault@1
+        uses: Azure/get-keyvault-secrets@v1
         with:
-          command: get
+          # command: get
           secrets: |
             DB-DIALECT
             DB-HOST
@@ -67,9 +67,10 @@ jobs:
             GOOGLE-CLIENT-ID
             GOOGLE-CLIENT-SECRET
             SESSION-SECRET
-          azSubscription: ${{ secrets.SUBSCRIPTION }}
+
           azKeyVault: ${{ secrets.VAULT }}
-          azResourceGroup: ${{ secrets.GROUP }}
+          # azSubscription: ${{ secrets.SUBSCRIPTION }}
+          # azResourceGroup: ${{ secrets.GROUP }}
 
       - name: Use Key Vault secrets
         run: |
