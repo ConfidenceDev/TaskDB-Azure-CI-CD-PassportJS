@@ -53,9 +53,8 @@ jobs:
 
       - name: Install secrets-store.csi.x-k8s.io CRDs
         run: |
-          kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/secrets-store-csi-driver/main/deploy/crd/secrets-store.csi.x-k8s.io_secretproviderclasses.yaml
-          kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/secrets-store-csi-driver/main/deploy/crd/secrets-store.csi.x-k8s.io_secretproviderclasspodstatuses.yaml
-          kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/secrets-store-csi-driver/main/deploy/crd/secrets-store.csi.x-k8s.io_secretproviderspecs.yaml
+          kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/secrets-store-csi-driver/v1.2.0/deploy/secrets-store.csi.x-k8s.io_secretproviderclasses.yaml
+          kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/secrets-store-csi-driver/v1.2.0/deploy/secrets-store.csi.x-k8s.io_secretproviderclasspodstatuses.yaml
 
       - name: Apply Kubernetes Deployment
         run: |
