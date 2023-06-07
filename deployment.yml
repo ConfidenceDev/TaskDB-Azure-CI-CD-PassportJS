@@ -23,8 +23,6 @@ spec:
               memory: "128Mi"
               cpu: "500m"
           env:
-            - name: PORT
-              value: "5000"
             - name: GOOGLE_CLIENT_ID
               value: "45156854380-rm3b37ji31k8mkob8t65vv858uc8719m.apps.googleusercontent.com"
             - name: GOOGLE_CLIENT_SECRET
@@ -56,5 +54,5 @@ spec:
   selector:
     app: creator-service-app
   ports:
-    - port: 80
+    - port: 5000
       targetPort: 5000
