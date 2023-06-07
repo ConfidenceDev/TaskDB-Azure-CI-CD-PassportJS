@@ -28,6 +28,7 @@ jobs:
       - name: Azure Login
         uses: azure/login@v1
         with: 
+          azcliversion: 2.30.0
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Azure CLI script
