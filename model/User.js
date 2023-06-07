@@ -17,7 +17,7 @@ const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, {
       rejectUnauthorized: false, // Skip validation of SSL certificate
     },
   },
-  logging: true,
+  logging: false,
 });
 
 // Define a model
