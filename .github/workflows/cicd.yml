@@ -68,7 +68,7 @@ jobs:
             GOOGLE-CLIENT-SECRET
             SESSION-SECRET
 
-          azKeyVault: ${{ secrets.VAULT }}
+          keyvault: ${{ secrets.VAULT }}
           # azSubscription: ${{ secrets.SUBSCRIPTION }}
           # azResourceGroup: ${{ secrets.GROUP }}
 
