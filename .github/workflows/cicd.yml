@@ -47,7 +47,7 @@ jobs:
       - name: Get AKS Credentials
         run: az aks get-credentials --resource-group ${{ env.resourceGroup }} --name ${{ env.clusterName }}
 
-      - name: Install kubectl
+      - name: Install kubectl cli
         run: |
           sudo az aks install-cli
 
