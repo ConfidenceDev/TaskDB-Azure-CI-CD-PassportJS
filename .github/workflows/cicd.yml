@@ -55,6 +55,9 @@ jobs:
         id: keyvault-yaml-secret
         with:
           keyvault: ${{ secrets.VAULT }}
+          inlineScript: |
+            value1=$(az keyvault secret show --name DB-HOST --vault-name taskdbstore --query value -o tsv)
+            echo $value1
 
       # - name: Apply Secrets Deploy to Kubernetes
       #   run: |
