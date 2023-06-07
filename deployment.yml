@@ -166,5 +166,6 @@ spec:
   selector:
     app: creator-service-app
   ports:
-    - port: 80
+    - protocol: TCP
+      port: 80
       targetPort: 5000
