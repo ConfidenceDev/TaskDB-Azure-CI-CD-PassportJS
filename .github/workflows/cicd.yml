@@ -47,6 +47,11 @@ jobs:
       - name: Get AKS Credentials
         run: az aks get-credentials --resource-group ${{ env.resourceGroup }} --name ${{ env.clusterName }}
 
+      - name: Set up Azure PowerShell
+        uses: azure/setup-azure-powershell@v1
+        with:
+          azPSVersion: "3.8.0"
+
       - name: Retrieve secrets from Azure Key Vault
         id: get-secrets
         run: |
