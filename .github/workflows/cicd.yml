@@ -51,12 +51,10 @@ jobs:
         uses: azure/cli@v1
 
       - name: Retrieve secrets from Azure Key Vault
-        uses: DawidB/get-secret-from-keyvault@master
-        id: get-secrets
+        uses: DfE-Digital/keyvault-yaml-secret@v1
+        id: keyvault-yaml-secret
         with:
-          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
-          key_vault_name: ${{ secrets.VAULT }}
-          secret_name: DB-HOST
+          keyvault: ${{ secrets.VAULT }}
 
       # - name: Apply Secrets Deploy to Kubernetes
       #   run: |
