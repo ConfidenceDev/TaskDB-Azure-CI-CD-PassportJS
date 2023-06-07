@@ -47,23 +47,8 @@ jobs:
       - name: Get AKS Credentials
         run: az aks get-credentials --resource-group ${{ env.resourceGroup }} --name ${{ env.clusterName }}
 
-      - name: Set up Azure PowerShell
-        uses: azure/setup-azure-powershell@v1
-        with:
-          azPSVersion: "3.8.0"
-
-      - name: Retrieve secrets from Azure Key Vault
-        id: get-secrets
-        run: |
-          secrets=("DB-DIALECT")
-          for secret in "${secrets[@]}"; do
-            secretValue=$(az keyvault secret show --name "$secret" --vault-name ${{ secrets.VAULT }} --query 'value' -o tsv)
-            echo "::set-output name=$secret::$secretValue"
-          done
-
-      - name: Use the retrieved secrets
-        run: |
-          echo "Secret 1: ${{ steps.get-secrets.outputs.DB-DIALECT }}"
+      - name: Install Azure Key Vault Secrets
+        uses: azure/azure-keyvault-secrets@1.0.1
 
       # - name: Apply Secrets Deploy to Kubernetes
       #   run: |
