@@ -28,7 +28,7 @@ jobs:
       - name: Azure Login
         uses: azure/login@v1
         with: 
-          creds: '{"clientId": "5b949fd9-aca7-47d2-ad52-72764eca04ab","clientSecret": "EIc8Q~HjwvgGqgJC2YykA36P~ZGpqpBAFwFRnbaU","subscriptionId": "86faab24-a754-426c-9e08-f54a249d5dba","tenantId": "aea4de64-772e-46f6-84c3-a12ef6e8899c","activeDirectoryEndpointUrl": "https://login.microsoftonline.com","resourceManagerEndpointUrl": "https://management.azure.com/","activeDirectoryGraphResourceId": "https://graph.windows.net/","sqlManagementEndpointUrl": "https://management.core.windows.net:8443/","galleryEndpointUrl": "https://gallery.azure.com/","managementEndpointUrl": "https://management.core.windows.net/","enable-AzPSSession": true}'
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Azure CLI script
         uses: azure/CLI@v1
