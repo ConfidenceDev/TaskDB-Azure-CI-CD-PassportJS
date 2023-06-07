@@ -20,19 +20,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Build and Push Docker Image
-        uses: mr-smithers-excellent/docker-build-push@v6
-        with:
-          image: confidencedev/taskdb
-          registry: docker.io
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
           
       - name: Azure Login
         uses: azure/login@v1
         with:
           client-id: '5b949fd9-aca7-47d2-ad52-72764eca04ab'
+          client-secret: '3f8050ca-e931-4cc7-9d6b-5041bd6fc65d'
           tenant-id: 'aea4de64-772e-46f6-84c3-a12ef6e8899c'
           subscription-id: '86faab24-a754-426c-9e08-f54a249d5dba'
   
