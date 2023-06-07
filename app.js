@@ -11,7 +11,7 @@ app.use(cors);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/" || "home", (req, res) => {
+app.get("/", (req, res) => {
   console.log("Welcome to TaskDB dashboard, see README.md file to use API");
   return res.status(200).json({
     message: "Welcome to TaskDB dashboard, see README.md file to use API",
