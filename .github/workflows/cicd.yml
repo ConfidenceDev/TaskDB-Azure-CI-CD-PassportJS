@@ -1,21 +1,21 @@
 name: CI-CD
 
 env:
- resourceGroup: "learn"
- clusterName: "taskcluster"
+  resourceGroup: "learn"
+  clusterName: "taskcluster"
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-  
+
 permissions:
- id-token: write
- contents: read
+  id-token: write
+  contents: read
 
 jobs:
   build:
@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        
+
       - name: Build and Push Docker Image
         uses: mr-smithers-excellent/docker-build-push@v6
         with:
@@ -33,17 +33,17 @@ jobs:
           registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-        
+
       - name: Install Azure CLI
         run: |
           curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-          
+
       - name: Azure Login
         uses: azure/login@v1
-        with: 
+        with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           enable-AzPSSession: true
-          
+
       - name: Get AKS Credentials
         run: az aks get-credentials --resource-group ${{ env.resourceGroup }} --name ${{ env.clusterName }}
 
@@ -51,7 +51,12 @@ jobs:
         run: |
           sudo az aks install-cli
 
+      - name: Install secrets-store.csi.x-k8s.io CRDs
+        run: |
+          kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/secrets-store-csi-driver/main/deploy/crd/secrets-store.csi.x-k8s.io_secretproviderclasses.yaml
+          kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/secrets-store-csi-driver/main/deploy/crd/secrets-store.csi.x-k8s.io_secretproviderclasspodstatuses.yaml
+          kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/secrets-store-csi-driver/main/deploy/crd/secrets-store.csi.x-k8s.io_secretproviderspecs.yaml
+
       - name: Apply Kubernetes Deployment
         run: |
           kubectl apply -f deployment.yml
-
