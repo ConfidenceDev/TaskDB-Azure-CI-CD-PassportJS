@@ -49,6 +49,9 @@ jobs:
 
       - name: Install Azure Key Vault Secrets
         uses: Azure/get-keyvault-secrets@v1
+        with:
+          keyvault: "taskdbstore"
+          secrets: "DB-HOST"
 
       # - name: Apply Secrets Deploy to Kubernetes
       #   run: |
