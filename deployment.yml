@@ -17,7 +17,7 @@ spec:
           image: confidencedev/taskdb
           imagePullPolicy: Always
           ports:
-            - containerPort: 4000
+            - containerPort: 5000
           resources:
             limits:
               memory: "128Mi"
