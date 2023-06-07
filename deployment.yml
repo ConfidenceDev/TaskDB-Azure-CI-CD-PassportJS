@@ -23,26 +23,139 @@ spec:
               memory: "128Mi"
               cpu: "500m"
           env:
-            - name: GOOGLE_CLIENT_ID
-              value: "{{GOOGLE_CLIENT_ID}}"
-            - name: GOOGLE_CLIENT_SECRET
-              value: "{{GOOGLE_CLIENT_SECRET}}"
-            - name: GITHUB_CLIENT_ID
-              value: "{{GITHUB_CLIENT_ID}}"
-            - name: GITHUB_CLIENT_SECRET
-              value: "{{GITHUB_CLIENT_SECRET}}"
-            - name: SESSION_SECRET
-              value: "{{SESSION_SECRET}}"
-            - name: DB_NAME
-              value: "{{DB_NAME}}"
-            - name: DB_USERNAME
-              value: "{{DB_USERNAME}}"
-            - name: DB_PASSWORD
-              value: "{{DB_PASSWORD}}"
-            - name: DB_HOST
-              value: "{{DB_HOST}}"
-            - name: DB_DIALECT
-              value: "{{DB_DIALECT}}"
+            - name: DB-DIALECT
+              valueFrom:
+                secretKeyRef:
+                  name: akvsecrets
+                  key: DB-DIALECT
+            - name: DB-HOST
+              valueFrom:
+                secretKeyRef:
+                  name: akvsecrets
+                  key: DB-HOST
+            - name: DB-NAME
+              valueFrom:
+                secretKeyRef:
+                  name: akvsecrets
+                  key: DB-NAME
+            - name: DB-PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: akvsecrets
+                  key: DB-PASSWORD
+            - name: DB-USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: akvsecrets
+                  key: DB-USERNAME
+            - name: GITHUB-CLIENT-ID
+              valueFrom:
+                secretKeyRef:
+                  name: akvsecrets
+                  key: GITHUB-CLIENT-ID
+            - name: GITHUB-CLIENT-SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: akvsecrets
+                  key: GITHUB-CLIENT-SECRET
+            - name: GOOGLE-CLIENT-ID
+              valueFrom:
+                secretKeyRef:
+                  name: akvsecrets
+                  key: GOOGLE-CLIENT-ID
+            - name: GOOGLE-CLIENT-SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: akvsecrets
+                  key: GOOGLE-CLIENT-SECRET
+            - name: SESSION-SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: akvsecrets
+                  key: SESSION-SECRET
+          volumeMounts:
+            - name: secrets-store-inline
+              mountPath: "/mnt/secrets-store"
+              readOnly: true
+      volumes:
+        - name: secrets-store-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "azure-taskdbstore"
+---
+
+---
+apiVersion: secrets-store.csi.x-k8s.io/v1alpha1
+kind: SecretProviderClass
+metadata:
+  name: azure-taskdbstore
+spec:
+  provider: azure
+  secretObjects:
+    - data:
+        - key: DB-DIALECT
+          objectName: DB-DIALECT
+        - key: DB-HOST
+          objectName: DB-HOST
+        - key: DB-NAME
+          objectName: DB-NAME
+        - key: DB-PASSWORD
+          objectName: DB-PASSWORD
+        - key: DB-USERNAME
+          objectName: DB-USERNAME
+        - key: GITHUB-CLIENT-ID
+          objectName: GITHUB-CLIENT-ID
+        - key: GITHUB-CLIENT-SECRET
+          objectName: GITHUB-CLIENT-SECRET
+        - key: GOOGLE-CLIENT-ID
+          objectName: GOOGLE-CLIENT-ID
+        - key: GOOGLE-CLIENT-SECRET
+          objectName: GOOGLE-CLIENT-SECRET
+        - key: SESSION-SECRET
+          objectName: SESSION-SECRET
+      secretName: akvsecrets
+      type: Opaque
+  parameters:
+    usePodIdentity: "false"
+    userAssignedIdentityID: ""
+    keyvaultName: taskdbstore
+    cloudName: ""
+    objects: |
+      array:
+        - |
+          objectName: DB-DIALECT
+          objectType: secret
+        - |
+          objectName: DB-HOST
+          objectType: secret
+        - |
+          objectName: DB-NAME
+          objectType: secret
+        - |
+          objectName: DB-PASSWORD
+          objectType: secret
+        - |
+          objectName: DB-USERNAME
+          objectType: secret
+        - |
+          objectName: GITHUB-CLIENT-ID
+          objectType: secret
+        - |
+          objectName: GITHUB-CLIENT-SECRET
+          objectType: secret
+        - |
+          objectName: GOOGLE-CLIENT-ID
+          objectType: secret
+        - |
+          objectName: GOOGLE-CLIENT-SECRET
+          objectType: secret
+        - |
+          objectName: SESSION-SECRET
+          objectType: secret
+    tenantId: aea4de64-772e-46f6-84c3-a12ef6e8899c
+    useVMManagedIdentity: "false"
 
 ---
 apiVersion: v1
