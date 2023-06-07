@@ -36,7 +36,7 @@ jobs:
           enable-AzPSSession: true
           
       - name: Get AKS Credentials
-        run: az aks get-credentials --resource-group ${{ resourceGroup }} --name ${{ clusterName }}
+        run: az aks get-credentials --resource-group ${{ env.resourceGroup }} --name ${{ env.clusterName }}
 
       - name: Install kubectl
         run: |
