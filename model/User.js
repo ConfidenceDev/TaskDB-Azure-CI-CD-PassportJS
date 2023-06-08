@@ -7,6 +7,7 @@ const {
 } = require("../configs/config");
 const Sequelize = require("sequelize");
 
+console.log(DB_NAME, DB_USERNAME, DB_PASSWORD, DB_HOST, DB_DIALECT);
 // Create a new Sequelize instance
 const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, {
   host: DB_HOST,
@@ -17,7 +18,7 @@ const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, {
       rejectUnauthorized: false, // Skip validation of SSL certificate
     },
   },
-  logging: false,
+  logging: true,
 });
 
 // Define a model
