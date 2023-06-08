@@ -8,7 +8,7 @@ const {
 const Sequelize = require("sequelize");
 
 // Create a new Sequelize instance
-const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, {
+const sequelize = new Sequelize(DB_NAME, DB_USERNAME, "Wondaful@17", {
   host: DB_HOST,
   dialect: DB_DIALECT,
   dialectOptions: {

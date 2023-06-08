@@ -12,9 +12,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
-  console.log("Welcome to TaskDB dashboard: " + DB_PASSWORD);
+  console.log("Welcome to TaskDB dashboard");
   return res.status(200).json({
-    message: "Welcome to TaskDB dashboard, see README.md file to use API",
+    message: `Welcome to TaskDB dashboard, see README.md file to use API: ${DB_PASSWORD}`,
   });
 });
 
