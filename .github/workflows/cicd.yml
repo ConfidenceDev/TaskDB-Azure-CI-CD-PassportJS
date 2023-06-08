@@ -69,6 +69,4 @@ jobs:
               -e "s/${{ env.DB-PASSWORD }}/${db-passowrd}/g" \
               -e "s/${{ env.DB-HOST }}/${db-host}/g" \
               -e "s/${{ env.DB-DIALECT }}/${db-dialect}/g" \
-              deployment.yml |
-          sed -i "s/secret/taskdb/g" deployment.yml
-          kubectl apply -f deployment.yml
+              deployment.yml | sed "s/secret/taskdb/g" | kubectl apply -f -
