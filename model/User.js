@@ -7,18 +7,24 @@ const {
 } = require("../configs/config");
 const Sequelize = require("sequelize");
 
+console.log("H: " + DB_NAME, DB_USERNAME, DB_PASSWORD, DB_HOST, DB_DIALECT);
 // Create a new Sequelize instance
-const sequelize = new Sequelize(DB_NAME, DB_USERNAME, "Wondaful@17", {
-  host: DB_HOST,
-  dialect: DB_DIALECT,
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false, // Skip validation of SSL certificate
+const sequelize = new Sequelize(
+  "taskdb",
+  "taskadmin@taskdbsvr",
+  "Wondaful@17",
+  {
+    host: DB_HOST,
+    dialect: DB_DIALECT,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false, // Skip validation of SSL certificate
+      },
     },
-  },
-  logging: true,
-});
+    logging: true,
+  }
+);
 
 // Define a model
 const User = sequelize.define("User", {
