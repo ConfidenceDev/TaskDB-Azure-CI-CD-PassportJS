@@ -1,9 +1,5 @@
 name: CI-CD
 
-env:
-  resourceGroup: "learn"
-  clusterName: "taskcluster"
-
 on:
   push:
     branches: ["main"]
@@ -45,7 +41,7 @@ jobs:
           enable-AzPSSession: true
 
       - name: Get AKS Credentials
-        run: az aks get-credentials --resource-group ${{ env.resourceGroup }} --name ${{ env.clusterName }}
+        run: az aks get-credentials --resource-group ${{ secrets.RESOURCE_GROUP }} --name ${{ secrets.CLUSTER_NAME }}
 
       - name: Install kubectl CLI
         run: |
@@ -54,7 +50,7 @@ jobs:
 
           for secret in "${secrets[@]}"
           do
-              value=$(az keyvault secret show --name "$secret" --vault-name "taskdbstore" --query "value" --output tsv)
+              value=$(az keyvault secret show --name "$secret" --vault-name "${{ secrets.VAULT }}" --query "value" --output tsv)
               echo "$secret=$value" >> $GITHUB_ENV
           done
 
