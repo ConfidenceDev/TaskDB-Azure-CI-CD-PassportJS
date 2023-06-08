@@ -36,7 +36,9 @@ spec:
             - name: dbname
               value: db-name
             - name: dbusername
-              value: db-passowrd
+              value: db-username
+            - name: dbpassword
+              value: db-password
             - name: dbhost
               value: db-host
             - name: dbdialect

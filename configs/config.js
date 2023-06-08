@@ -7,7 +7,7 @@ module.exports = {
   SESSION_SECRET: process.env.sessionsecret,
   DB_NAME: process.env.dbname,
   DB_USERNAME: process.env.dbusername,
-  DB_PASSWORD: process.env.dbpassowrd,
+  DB_PASSWORD: process.env.dbpassword,
   DB_HOST: process.env.dbhost,
   DB_DIALECT: process.env.dbdialect,
 };
