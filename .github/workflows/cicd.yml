@@ -62,15 +62,8 @@ jobs:
         uses: fjogeleit/yaml-update-action@main
         with:
           file-path: deployment.yml
-          insert-after: "name: GOOGLE_CLIENT_ID"
+          insert-placeholder: "{{GOOGLE-CLIENT-ID}}"
           value: ${{ env.GOOGLE-CLIENT-ID }}
-
-      - name: Update GOOGLE_CLIENT_SECRET
-        uses: fjogeleit/yaml-update-action@main
-        with:
-          file-path: deployment.yml
-          insert-after: "name: GOOGLE_CLIENT_SECRET"
-          value: ${{ env.GOOGLE-CLIENT-SECRET }}
 
       # - name: Apply Secrets Deploy to Kubernetes
       #   run: |
