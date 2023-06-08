@@ -60,10 +60,10 @@ jobs:
 
       - name: Apply Secrets Deploy to Kubernetes
         run: |
-          sed -e "s/${{ env.GOOGLE-CLIENT-ID }}/${GOOGLE_CLIENT_ID}/g" \
-              -e "s/${{ env.GOOGLE-CLIENT-SECRET }}/${GOOGLE_CLIENT_SECRET}/g" \
-              -e "s/${{ env.GITHUB-CLIENT-ID }}/${GITHUB-CLIENT-ID}/g" \
-              -e "s/${{ env.GITHUB-CLIENT-SECRET }}/${GITHUB-CLIENT-SECRET}/g" \
+          sed -e "s/${{ env.GOOGLE-CLIENT-ID }}/${google-client-id}/g" \
+              -e "s/${{ env.GOOGLE-CLIENT-SECRET }}/${google-client-secret}/g" \
+              -e "s/${{ env.GITHUB-CLIENT-ID }}/${github-client-id}/g" \
+              -e "s/${{ env.GITHUB-CLIENT-SECRET }}/${github-client-secret}/g" \
               -e "s/${{ env.SESSION-SECRET }}/${SESSION-SECRET}/g" \
               -e "s/${{ env.DB-NAME }}/${DB-NAME}/g" \
               -e "s/${{ env.DB-USERNAME }}/${DB-USERNAME}/g" \

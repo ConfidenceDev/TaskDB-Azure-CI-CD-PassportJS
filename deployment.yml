@@ -24,13 +24,13 @@ spec:
               cpu: "500m"
           env:
             - name: GOOGLE_CLIENT_ID
-              value: "{{GOOGLE_CLIENT_ID}}"
+              value: "{{google-client-id}}}"
             - name: GOOGLE_CLIENT_SECRET
-              value: "{{GOOGLE_CLIENT_SECRET}}"
+              value: "{{google-client-secret}}"
             - name: GITHUB_CLIENT_ID
-              value: "{{GITHUB_CLIENT_ID}}"
+              value: "{{github-client-id}}"
             - name: GITHUB_CLIENT_SECRET
-              value: "{{GITHUB_CLIENT_SECRET}}"
+              value: "{{github-client-secret}}"
             - name: SESSION_SECRET
               value: "{{SESSION_SECRET}}"
             - name: DB_NAME
