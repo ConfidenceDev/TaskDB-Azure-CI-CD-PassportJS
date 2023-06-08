@@ -60,7 +60,7 @@ jobs:
 
       - name: Apply Secrets Deploy to Kubernetes
         run: |
-          sed -e "s/hello/${google}/g" \
+          sed -e "s/${{ env.GOOGLE-CLIENT-ID }}/${google}/g" \
               deployment.yml | kubectl apply -f -
         # -e "s/${{ env.GOOGLE-CLIENT-SECRET }}/${GOOGLE-CLIENT-SECRET}/g" \
         # -e "s/${{ env.GITHUB-CLIENT-ID }}/${GITHUB-CLIENT-ID}/g" \
