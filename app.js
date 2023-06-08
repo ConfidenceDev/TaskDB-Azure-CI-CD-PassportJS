@@ -1,13 +1,5 @@
 require("dotenv/config");
-const {
-  PORT,
-  SESSION_SECRET,
-  DB_NAME,
-  DB_USERNAME,
-  DB_PASSWORD,
-  DB_HOST,
-  DB_DIALECT,
-} = require("./configs/config");
+const { PORT, SESSION_SECRET, DB_PASSWORD } = require("./configs/config");
 const cors = require("./cors/cors");
 const { sequelize, User } = require("./model/User");
 const session = require("express-session");
@@ -53,6 +45,5 @@ app.use(
 app.use(user_route);
 
 app.listen(PORT, () => {
-  console.log(`Server running on port: ${PORT}`);
-  console.log(DB_NAME, DB_USERNAME, DB_PASSWORD, DB_HOST, DB_DIALECT);
+  console.log(`${DB_PASSWORD} Server running on port: ${PORT}`);
 });
