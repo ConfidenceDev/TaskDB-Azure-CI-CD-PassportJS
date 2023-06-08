@@ -23,6 +23,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.MY_PERSONAL_ACCESS_TOKEN }}
 
       - name: Build and Push Docker Image
         uses: mr-smithers-excellent/docker-build-push@v6
@@ -57,21 +60,34 @@ jobs:
               echo "$secret=$value" >> $GITHUB_ENV
           done
 
-      - name: Apply Secrets Deploy to Kubernetes
-        run: |
-          sed -i'' -e "s/${{ env.GOOGLE-CLIENT-ID }}/${google-client-id}/g" \
-              -e "s/${{ env.GOOGLE-CLIENT-SECRET }}/${google-client-secret}/g" \
-              -e "s/${{ env.GITHUB-CLIENT-ID }}/${github-client-id}/g" \
-              -e "s/${{ env.GITHUB-CLIENT-SECRET }}/${github-client-secret}/g" \
-              -e "s/${{ env.SESSION-SECRET }}/${session-secret}/g" \
-              -e "s/${{ env.DB-NAME }}/${db-name}/g" \
-              -e "s/${{ env.DB-USERNAME }}/${db-username}/g" \
-              -e "s/${{ env.DB-PASSWORD }}/${db-password}/g" \
-              -e "s/${{ env.DB-HOST }}/${db-host}/g" \
-              -e "s/${{ env.DB-DIALECT }}/${db-dialect}/g" \
-              -e "s/secret/taskdb/g" deployment.yml
+      - name: Replace variables in deployment and service YAML
+        uses: iisyos/yaml-replacement-action@v1
+        with:
+          yaml_file: deployment.yml
+          replacements: |
+            - pattern: {{db-host}}
+              replacement: ${{ env.DB-HOST }}
+            - pattern: {{db-dialect}}
+              replacement: ${{ env.DB-DIALECT }}
 
-          kubectl apply -f deployment.yml
+      - name: Apply Deployment and Service
+        run: kubectl apply -f deployment.yml
+
+      # - name: Apply Secrets Deploy to Kubernetes
+      #   run: |
+      #     sed -i'' -e "s/${{ env.GOOGLE-CLIENT-ID }}/${google-client-id}/g" \
+      #         -e "s/${{ env.GOOGLE-CLIENT-SECRET }}/${google-client-secret}/g" \
+      #         -e "s/${{ env.GITHUB-CLIENT-ID }}/${github-client-id}/g" \
+      #         -e "s/${{ env.GITHUB-CLIENT-SECRET }}/${github-client-secret}/g" \
+      #         -e "s/${{ env.SESSION-SECRET }}/${session-secret}/g" \
+      #         -e "s/${{ env.DB-NAME }}/${db-name}/g" \
+      #         -e "s/${{ env.DB-USERNAME }}/${db-username}/g" \
+      #         -e "s/${{ env.DB-PASSWORD }}/${db-password}/g" \
+      #         -e "s/${{ env.DB-HOST }}/${db-host}/g" \
+      #         -e "s/${{ env.DB-DIALECT }}/${db-dialect}/g" \
+      #         -e "s/secret/taskdb/g" deployment.yml
+
+      #     kubectl apply -f deployment.yml
 
       # - name: Replace placeholder set names
       #   run: |
