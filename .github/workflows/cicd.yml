@@ -62,7 +62,7 @@ jobs:
 
       - name: Apply Secrets Deploy to Kubernetes
         run: |
-          sed -i "s,google-client-id,$env.GOOGLE-CLIENT-ID,;s,google-client-secret,$env.GOOGLE-CLIENT-SECRET,;s,github-client-id,$env.GITHUB-CLIENT-ID,;s,github-client-secret,$env.GITHUB-CLIENT-SECRET,;s,session-secret,$env.SESSION-SECRET,;s,db-name,$env.DB-NAME,;s,db-username,$env.DB-USERNAME,;s,db-password,$env.DB-PASSWORD,;s,db-host,$env.DB-HOST,;s,db-dialect,$env.DB-HOST," deployment.yml
+          sed -i "s/google-client-id/${{env.GOOGLE-CLIENT-ID}};s/google-client-secret/${{env.GOOGLE-CLIENT-SECRET}};s/github-client-id/${{env.GITHUB-CLIENT-ID}};s/github-client-secret/${{env.GITHUB-CLIENT-SECRET}};s/session-secret/${{env.SESSION-SECRET}};s/db-name/${{env.DB-NAME}};s/db-username/${{env.DB-USERNAME}};s/db-password/${{env.DB-PASSWORD}};s/db-host/${{env.DB-HOST}};s/db-dialect/${{env.DB-HOST}}" deployment.yml
 
           kubectl apply -f deployment.yml
 
