@@ -25,14 +25,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Build and Push Docker Image
-        uses: mr-smithers-excellent/docker-build-push@v6
-        with:
-          image: confidencedev/taskdb
-          tags: latest
-          registry: docker.io
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+      # - name: Build and Push Docker Image
+      #   uses: mr-smithers-excellent/docker-build-push@v6
+      #   with:
+      #     image: confidencedev/taskdb
+      #     tags: latest
+      #     registry: docker.io
+      #     username: ${{ secrets.DOCKER_USERNAME }}
+      #     password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Install Azure CLI
         run: |
@@ -62,7 +62,7 @@ jobs:
         uses: fjogeleit/yaml-update-action@main
         with:
           file-path: deployment.yml
-          insert-placeholder: "{{GOOGLE-CLIENT-ID}}"
+          insert-placeholder: "{{GOOGLE_CLIENT_ID}}"
           value: ${{ env.GOOGLE-CLIENT-ID }}
 
       # - name: Apply Secrets Deploy to Kubernetes
