@@ -40,7 +40,7 @@ spec:
             - name: dbhost
               value: db-host
             - name: dbdialect
-              value: postgres
+              value: db-dialect
 ---
 apiVersion: v1
 kind: Service
