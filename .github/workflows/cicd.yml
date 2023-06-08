@@ -61,17 +61,20 @@ jobs:
           done
 
       - name: Replace variables in deployment and service YAML
-        uses: iisyos/yaml-replacement-action@v1
+        uses: rmeneely/update-yaml@v1
         with:
-          yaml_file: deployment.yml
-          replacements: |
-            - pattern: {{db-host}}
-              replacement: ${{ env.DB-HOST }}
-            - pattern: {{db-dialect}}
-              replacement: ${{ env.DB-DIALECT }}
+          infile: deployment.yml
+          varlist: appVersion=v1.2.3,version=4.5.6
 
       - name: Apply Deployment and Service
         run: kubectl apply -f deployment.yml
+
+      - name: Apply Secrets Deploy to Kubernetes
+        run: |
+          sed -i "s,dbhost,$env.DB-HOST," deployment.yaml
+          sed -i "s,dbdialect,$env.DB-DIALECT ," deployment.yaml
+
+          kubectl apply -f deployment.yml
 
       # - name: Apply Secrets Deploy to Kubernetes
       #   run: |
