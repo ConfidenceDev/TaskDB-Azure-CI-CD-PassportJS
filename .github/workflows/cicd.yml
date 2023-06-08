@@ -59,18 +59,20 @@ jobs:
 
       - name: Apply Secrets Deploy to Kubernetes
         run: |
-          sed -e "s/${{ env.GOOGLE-CLIENT-ID }}/${google-client-id}/g" \
-              -e "s/${{ env.GOOGLE-CLIENT-SECRET }}/${google-client-secret}/g" \
-              -e "s/${{ env.GITHUB-CLIENT-ID }}/${github-client-id}/g" \
-              -e "s/${{ env.GITHUB-CLIENT-SECRET }}/${github-client-secret}/g" \
-              -e "s/${{ env.SESSION-SECRET }}/${session-secret}/g" \
-              -e "s/${{ env.DB-NAME }}/${db-name}/g" \
-              -e "s/${{ env.DB-USERNAME }}/${db-username}/g" \
-              -e "s/${{ env.DB-PASSWORD }}/${db-password}/g" \
-              -e "s/${{ env.DB-HOST }}/${db-host}/g" \
-              -e "s/${{ env.DB-DIALECT }}/${db-dialect}/g" \
-              deployment.yml > modified_deployment.yml
+          sed -i "s/{{google-client-id}}/${{ env.GOOGLE-CLIENT-ID }}/g" \
+              -i "s/${{ env.GOOGLE-CLIENT-SECRET }}/${google-client-secret}/g" \
+              -i "s/${{ env.GITHUB-CLIENT-ID }}/${github-client-id}/g" \
+              -i "s/${{ env.GITHUB-CLIENT-SECRET }}/${github-client-secret}/g" \
+              -i "s/${{ env.SESSION-SECRET }}/${session-secret}/g" \
+              -i "s/${{ env.DB-NAME }}/${db-name}/g" \
+              -i "s/${{ env.DB-USERNAME }}/${db-username}/g" \
+              -i "s/${{ env.DB-PASSWORD }}/${db-passowrd}/g" \
+              -i "s/{{db-host}}/${{ env.DB-HOST }}/g" \
+              -i "s/{{db-dialect}}/${{ env.DB-DIALECT }}/g" \
+              -i "s/secret/taskdb/g" \
+              deployment.yml | kubectl apply -f -
 
-          sed -i "s/secret/taskdb/g" modified_deployment.yml
-
-          kubectl apply -f modified_deployment.yml
+      # - name: Replace placeholder set names
+      #   run: |
+      #     sed -i "s/secret/taskdb/g" deployment.yml
+      #     kubectl apply -f deployment.yml
