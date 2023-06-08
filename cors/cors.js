@@ -1,6 +1,10 @@
 const cors = require("cors");
 const { PORT } = require("../configs/config");
 
+/*
+  Set cors to allow browser access from permitted url only
+  origin: "*" - For all urls
+*/
 const corsHeader = {
   origin: "*",
   methods: ["GET", "PUT", "POST", "DELETE"],

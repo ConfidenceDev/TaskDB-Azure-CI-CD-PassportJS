@@ -8,9 +8,12 @@ const {
 } = require("../dao/user_model");
 const { v4: uuidv4 } = require("uuid");
 
+/*
+  Function to pass user data for storing the database 
+*/
 async function storeUser(user, res) {
   try {
-    const genUUID = uuidv4();
+    const genUUID = uuidv4(); // Generate random uuid
 
     const obj = {
       id: genUUID,
@@ -32,6 +35,9 @@ async function storeUser(user, res) {
   }
 }
 
+/*
+  Function to find a single user from the database 
+*/
 async function findAUser(id, res) {
   try {
     const result = await findUser(id);
@@ -44,6 +50,10 @@ async function findAUser(id, res) {
   }
 }
 
+/*
+  Function to fetch all users by their provider (Eg: Google) from the database 
+  NOTE: provider should be in lowercase or call the toLowerCase() function on it
+*/
 async function getAllUsers(provider, res) {
   try {
     const result = await allUsers(provider);
@@ -57,6 +67,10 @@ async function getAllUsers(provider, res) {
   }
 }
 
+/*
+  Function to fetch the size of all users by their provider (Eg: Google) from the database 
+  NOTE: provider should be in lowercase or call the toLowerCase() function on it
+*/
 async function getAllSize(provider, res) {
   try {
     const result = await allSize(provider);
@@ -69,6 +83,10 @@ async function getAllSize(provider, res) {
   }
 }
 
+/*
+  Function to get the average number of followers by their provider (Eg: Google) from the database 
+  NOTE: provider should be in lowercase or call the toLowerCase() function on it
+*/
 async function getAvgFollowers(provider, res) {
   try {
     const result = await avgFollowers(provider);
@@ -81,6 +99,10 @@ async function getAvgFollowers(provider, res) {
   }
 }
 
+/*
+  Function to get the most common location of all users by their provider (Eg: Google) from the database 
+  NOTE: provider should be in lowercase or call the toLowerCase() function on it
+*/
 async function mostCommonLocation(provider, res) {
   try {
     const result = await commonLocation(provider);

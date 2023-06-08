@@ -1,5 +1,8 @@
 const { sequelize, User } = require("../model/User");
 
+/*
+  Function to store to the database 
+*/
 async function store(obj) {
   return new Promise((resolve, reject) => {
     User.create(obj)
@@ -14,6 +17,9 @@ async function store(obj) {
   });
 }
 
+/*
+  Function to fetch the user from the database 
+*/
 async function findUser(id) {
   return new Promise((resolve, reject) => {
     User.findOne({
@@ -32,6 +38,9 @@ async function findUser(id) {
   });
 }
 
+/*
+  Function to fetch all users from the database 
+*/
 async function allUsers(provider) {
   return new Promise((resolve, reject) => {
     User.findAll({
@@ -50,6 +59,9 @@ async function allUsers(provider) {
   });
 }
 
+/*
+  Function to count the size of users from the database 
+*/
 async function allSize(provider) {
   return new Promise((resolve, reject) => {
     User.count({
@@ -68,6 +80,9 @@ async function allSize(provider) {
   });
 }
 
+/*
+  Function to evaluate average from the database 
+*/
 async function avgFollowers(provider) {
   return new Promise((resolve, reject) => {
     const col = "followers";
@@ -90,6 +105,9 @@ async function avgFollowers(provider) {
   });
 }
 
+/*
+  Function to retrieve the common location from the database 
+*/
 async function commonLocation(provider) {
   return new Promise((resolve, reject) => {
     const col = "location";

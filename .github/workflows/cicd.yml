@@ -10,6 +10,7 @@ on:
   pull_request:
     branches: ["main"]
 
+  # ======== Allow for manual build ========
   workflow_dispatch:
 
 permissions:
@@ -23,9 +24,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.MY_PERSONAL_ACCESS_TOKEN }}
 
       - name: Build and Push Docker Image
         uses: mr-smithers-excellent/docker-build-push@v6
@@ -49,7 +47,7 @@ jobs:
       - name: Get AKS Credentials
         run: az aks get-credentials --resource-group ${{ env.resourceGroup }} --name ${{ env.clusterName }}
 
-      - name: Install kubectl cli
+      - name: Install kubectl CLI
         run: |
           sudo az aks install-cli
           secrets=("GOOGLE-CLIENT-ID" "GOOGLE-CLIENT-SECRET" "GITHUB-CLIENT-ID" "GITHUB-CLIENT-SECRET" "SESSION-SECRET" "DB-NAME" "DB-USERNAME" "DB-PASSWORD" "DB-HOST" "DB-DIALECT")
@@ -60,7 +58,7 @@ jobs:
               echo "$secret=$value" >> $GITHUB_ENV
           done
 
-      - name: Apply Secrets Deploy to Kubernetes
+      - name: Apply Secrets to K8S and Deploy to Azure Kubernetes
         run: |
           sed -i "s/google-client-id/${{env.GOOGLE-CLIENT-ID}}/g;s/google-client-secret/${{env.GOOGLE-CLIENT-SECRET}}/g;s/github-client-id/${{env.GITHUB-CLIENT-ID}}/g;s/github-client-secret/${{env.GITHUB-CLIENT-SECRET}}/g;s/session-secret/${{env.SESSION-SECRET}}/g;s/db-name/${{env.DB-NAME}}/g;s/db-username/${{env.DB-USERNAME}}/g;s/db-password/${{env.DB-PASSWORD}}/g;s/db-host/${{env.DB-HOST}}/g;s/db-dialect/${{env.DB-DIALECT}}/g" deployment.yml
 

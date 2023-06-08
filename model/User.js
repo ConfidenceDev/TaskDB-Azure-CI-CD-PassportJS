@@ -8,6 +8,11 @@ const {
 const Sequelize = require("sequelize");
 const PG_PORT = 5432;
 
+/*
+  Initialize sequelize with database name, database username, database password,
+    database host (Eg: localhost), database port (Eg: 5432 for postgresql), and 
+    database dialect (E.g: potgres, mysql etc)
+*/
 const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, {
   host: DB_HOST,
   port: PG_PORT,
@@ -21,6 +26,7 @@ const sequelize = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, {
   logging: true,
 });
 
+// User Schema
 const User = sequelize.define("User", {
   id: {
     type: Sequelize.TEXT,

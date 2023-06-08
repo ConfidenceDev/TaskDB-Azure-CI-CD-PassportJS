@@ -25,6 +25,9 @@ const startPoint = "/task";
 router.use(passport.initialize());
 router.use(passport.session());
 
+/*
+  Identity providers setup: Google and Github, more can be added
+*/
 passport.use(
   new GoogleStrategy(
     {
@@ -95,6 +98,7 @@ router.get(`${startPoint}/location/:provider`, (req, res) => {
   mostCommonLocation(req.params.provider, res);
 });
 
+//==================== Logout =============
 router.get("/logout", (req, res) => {
   req.logout();
   res.redirect("/");

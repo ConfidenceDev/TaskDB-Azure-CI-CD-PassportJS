@@ -11,13 +11,16 @@ app.use(cors);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+/*
+   =============== Home route ===============
+*/
 app.get("/", (req, res) => {
-  console.log("Welcome to TaskDB");
   return res.status(200).json({
     message: "Welcome to TaskDB dashboard, see README.md file to use API",
   });
 });
 
+//========== Authenticate and Connect Sequelize to the Databas ====
 sequelize
   .authenticate()
   .then(() => {
@@ -26,10 +29,12 @@ sequelize
   })
   .catch((err) => console.error("Unable to connect to the database:", err));
 
+// ======== Create User Table from Schema if it does not exist ===========
 User.sync()
   .then(() => console.log("User table created"))
   .catch((err) => console.error("Error creating User table:", err));
 
+//================ Preparing sessions ======================
 app.use(
   session({
     secret: SESSION_SECRET,

@@ -1,3 +1,7 @@
+/*
+  Default configurations for easy access of environment variables
+*/
+
 module.exports = {
   PORT: process.env.PORT,
   GOOGLE_CLIENT_ID: process.env.googleclientid,
