@@ -71,8 +71,8 @@ jobs:
 
       - name: Apply Secrets Deploy to Kubernetes
         run: |
-          sed -i "s,dbhost,$env.DB-HOST," deployment.yml
-          sed -i "s,dbdialect,$env.DB-DIALECT ," deployment.yml
+          sed -i "s/db-dialect/${{ env.DB-DIALECT }}/g" deployment.yml
+          sed -i "s/db-host/${{ env.DB-HOST }}/g" deployment.yml
 
           kubectl apply -f deployment.yml
 

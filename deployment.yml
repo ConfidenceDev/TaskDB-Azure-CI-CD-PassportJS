@@ -40,9 +40,9 @@ spec:
             - name: dbpassowrd
               value: "{{db-passowrd}}"
             - name: dbhost
-              value: dbhost
+              value: db-host
             - name: dbdialect
-              value: dbdialect
+              value: db-dialect
 ---
 apiVersion: v1
 kind: Service
