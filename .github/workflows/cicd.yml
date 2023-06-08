@@ -49,7 +49,7 @@ jobs:
       - name: Install kubectl cli
         run: |
           sudo az aks install-cli
-          secrets=("GOOGLE-CLIENT-ID" "GOOGLE-CLIENT-SECRET" "GITHUB-CLIENT-ID" "GITHUB-CLIENT-SECRET" "SESSION-SECRET" "DB-NAME" "DB-USERNAME" "DB-PASSWORD" "DB-HOST" "DB-DIALECT")
+          secrets=("GOOGLE-CLIENT-ID" "GOOGLE-CLIENT-SECRET" "GITHUB-CLIENT-ID" "GITHUB-CLIENT-SECRET" "SESSION-SECRET" "DB-NAME" "DB-USERNAME" "DB-PASSWORD" "DB-HOST")
 
           for secret in "${secrets[@]}"
           do
@@ -68,7 +68,6 @@ jobs:
               -e "s/${{ env.DB-USERNAME }}/${db-username}/g" \
               -e "s/${{ env.DB-PASSWORD }}/${db-passowrd}/g" \
               -e "s/${{ env.DB-HOST }}/${db-host}/g" \
-              -e "s/${{ env.DB-DIALECT }}/${db-dialect}/g" \
               deployment.yml
 
       - name: Replace placeholder set names
