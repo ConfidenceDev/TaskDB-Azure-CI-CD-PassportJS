@@ -60,14 +60,14 @@ jobs:
 
       - name: Apply Secrets Deploy to Kubernetes
         run: |
-          sed -e "s/${{ env.GOOGLE-CLIENT-ID }}/${google}/g" \
+          sed -e "s/${{ env.GOOGLE-CLIENT-ID }}/${google-client-id}/g" \
+              -e "s/${{ env.GOOGLE-CLIENT-SECRET }}/${google-client-secret}/g" \
+              -e "s/${{ env.GITHUB-CLIENT-ID }}/${github-client-id}/g" \
+              -e "s/${{ env.GITHUB-CLIENT-SECRET }}/${github-client-secret}/g" \
+              -e "s/${{ env.SESSION-SECRET }}/${session-secret}/g" \
+              -e "s/${{ env.DB-NAME }}/${db-name}/g" \
+              -e "s/${{ env.DB-USERNAME }}/${db-username}/g" \
+              -e "s/${{ env.DB-PASSWORD }}/${db-passowrd}/g" \
+              -e "s/${{ env.DB-HOST }}/${db-host}/g" \
+              -e "s/${{ env.DB-DIALECT }}/${db-dialect}/g" \
               deployment.yml | kubectl apply -f -
-        # -e "s/${{ env.GOOGLE-CLIENT-SECRET }}/${GOOGLE-CLIENT-SECRET}/g" \
-        # -e "s/${{ env.GITHUB-CLIENT-ID }}/${GITHUB-CLIENT-ID}/g" \
-        # -e "s/${{ env.GITHUB-CLIENT-SECRET }}/${GITHUB-CLIENT-SECRET}/g" \
-        # -e "s/${{ env.SESSION-SECRET }}/${SESSION-SECRET}/g" \
-        # -e "s/${{ env.DB-NAME }}/${DB-NAME}/g" \
-        # -e "s/${{ env.DB-USERNAME }}/${DB-USERNAME}/g" \
-        # -e "s/${{ env.DB-PASSWORD }}/${DB-PASSWORD}/g" \
-        # -e "s/${{ env.DB-HOST }}/${DB-HOST}/g" \
-        # -e "s/${{ env.DB-DIALECT }}/${DB-DIALECT}/g" \

@@ -23,26 +23,26 @@ spec:
               memory: "128Mi"
               cpu: "500m"
           env:
-            - name: google
-              value: "{{google}}"
-            - name: GOOGLE_CLIENT_SECRET
-              value: "{{GOOGLE_CLIENT_SECRET}}"
-            - name: GITHUB_CLIENT_ID
-              value: "{{GITHUB-CLIENT-ID}}"
-            - name: GITHUB_CLIENT_SECRET
-              value: "{{GITHUB-CLIENT-SECRET}}"
-            - name: SESSION_SECRET
-              value: "{{SESSION-SECRET}}"
-            - name: DB_NAME
-              value: "{{DB-NAME}}"
-            - name: DB_USERNAME
-              value: "{{DB-USERNAME}}"
-            - name: DB_PASSWORD
-              value: "{{DB-PASSWORD}}"
-            - name: DB_HOST
-              value: "{{DB-HOST}}"
-            - name: DB_DIALECT
-              value: "{{DB-DIALECT}}"
+            - name: googleclientid
+              value: "{{google-client-id}}"
+            - name: googleclientsecret
+              value: "{{google-client-secret}}"
+            - name: githubclientid
+              value: "{{github-client-id}}"
+            - name: githubclientsecret
+              value: "{{github-client-secret}}"
+            - name: sessionsecret
+              value: "{{session-secret}}"
+            - name: dbname
+              value: "{{db-name}}"
+            - name: dbusername
+              value: "{{db-username}}"
+            - name: dbpassowrd
+              value: "{{db-passowrd}}"
+            - name: dbhost
+              value: "{{db-host}}"
+            - name: dbdialect
+              value: "{{db-dialect}}"
 ---
 apiVersion: v1
 kind: Service
