@@ -23,8 +23,8 @@ spec:
               memory: "128Mi"
               cpu: "500m"
           env:
-            - name: GOOGLE_CLIENT_ID
-              value: "{{GOOGLE_CLIENT_ID}}"
+            - name: google
+              value: "{{google}}"
             - name: GOOGLE_CLIENT_SECRET
               value: "{{GOOGLE_CLIENT_SECRET}}"
             - name: GITHUB_CLIENT_ID

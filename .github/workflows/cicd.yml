@@ -58,23 +58,16 @@ jobs:
               echo "$secret=$value" >> $GITHUB_ENV
           done
 
-      - name: Update GOOGLE_CLIENT_ID
-        uses: fjogeleit/yaml-update-action@main
-        with:
-          file-path: deployment.yml
-          insert-placeholder: "{{GOOGLE_CLIENT_ID}}"
-          value: ${{ env.GOOGLE-CLIENT-ID }}
-
-      # - name: Apply Secrets Deploy to Kubernetes
-      #   run: |
-      #     sed -e "s/${{ env.GOOGLE-CLIENT-ID }}/${google-client-id}/g" \
-      #         -e "s/${{ env.GOOGLE-CLIENT-SECRET }}/${GOOGLE-CLIENT-SECRET}/g" \
-      #         -e "s/${{ env.GITHUB-CLIENT-ID }}/${GITHUB-CLIENT-ID}/g" \
-      #         -e "s/${{ env.GITHUB-CLIENT-SECRET }}/${GITHUB-CLIENT-SECRET}/g" \
-      #         -e "s/${{ env.SESSION-SECRET }}/${SESSION-SECRET}/g" \
-      #         -e "s/${{ env.DB-NAME }}/${DB-NAME}/g" \
-      #         -e "s/${{ env.DB-USERNAME }}/${DB-USERNAME}/g" \
-      #         -e "s/${{ env.DB-PASSWORD }}/${DB-PASSWORD}/g" \
-      #         -e "s/${{ env.DB-HOST }}/${DB-HOST}/g" \
-      #         -e "s/${{ env.DB-DIALECT }}/${DB-DIALECT}/g" \
-      #         deployment.yml | kubectl apply -f -
+      - name: Apply Secrets Deploy to Kubernetes
+        run: |
+          sed -e "s/hello/${google}/g" \
+              deployment.yml | kubectl apply -f -
+        # -e "s/${{ env.GOOGLE-CLIENT-SECRET }}/${GOOGLE-CLIENT-SECRET}/g" \
+        # -e "s/${{ env.GITHUB-CLIENT-ID }}/${GITHUB-CLIENT-ID}/g" \
+        # -e "s/${{ env.GITHUB-CLIENT-SECRET }}/${GITHUB-CLIENT-SECRET}/g" \
+        # -e "s/${{ env.SESSION-SECRET }}/${SESSION-SECRET}/g" \
+        # -e "s/${{ env.DB-NAME }}/${DB-NAME}/g" \
+        # -e "s/${{ env.DB-USERNAME }}/${DB-USERNAME}/g" \
+        # -e "s/${{ env.DB-PASSWORD }}/${DB-PASSWORD}/g" \
+        # -e "s/${{ env.DB-HOST }}/${DB-HOST}/g" \
+        # -e "s/${{ env.DB-DIALECT }}/${DB-DIALECT}/g" \
