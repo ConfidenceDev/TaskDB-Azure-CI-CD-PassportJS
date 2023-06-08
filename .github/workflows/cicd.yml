@@ -70,3 +70,8 @@ jobs:
               -e "s/${{ env.DB-HOST }}/${db-host}/g" \
               -e "s/${{ env.DB-DIALECT }}/${db-dialect}/g" \
               deployment.yml | kubectl apply -f -
+
+      - name: Replace placeholder set names
+        run: |
+          sed -i "s/secret-app/taskdb-app/g" deployment.yaml
+          sed -i "s/secret-svc/taskdb-svc/g" service.yaml
