@@ -60,13 +60,13 @@ jobs:
       - name: Apply Secrets Deploy to Kubernetes
         run: |
           sed -i "s/{{google-client-id}}/${{ env.GOOGLE-CLIENT-ID }}/g" \
-              -i "s/${{ env.GOOGLE-CLIENT-SECRET }}/${google-client-secret}/g" \
-              -i "s/${{ env.GITHUB-CLIENT-ID }}/${github-client-id}/g" \
-              -i "s/${{ env.GITHUB-CLIENT-SECRET }}/${github-client-secret}/g" \
-              -i "s/${{ env.SESSION-SECRET }}/${session-secret}/g" \
-              -i "s/${{ env.DB-NAME }}/${db-name}/g" \
-              -i "s/${{ env.DB-USERNAME }}/${db-username}/g" \
-              -i "s/${{ env.DB-PASSWORD }}/${db-passowrd}/g" \
+              -i "s/{{google-client-secret}}/${{ env.GOOGLE-CLIENT-SECRET }}/g" \
+              -i "s/{{github-client-id}}/${{ env.GITHUB-CLIENT-ID }}/g" \
+              -i "s/{{github-client-secret}}/${{ env.GITHUB-CLIENT-SECRET }}/g" \
+              -i "s/{{session-secret}}/${{ env.SESSION-SECRET }}/g" \
+              -i "s/{{db-name}}/${{ env.DB-NAME }}/g" \
+              -i "s/{{db-username}}/${{ env.DB-USERNAME }}/g" \
+              -i "s/{{db-passowrd}}/${{ env.DB-PASSWORD }}/g" \
               -i "s/{{db-host}}/${{ env.DB-HOST }}/g" \
               -i "s/{{db-dialect}}/${{ env.DB-DIALECT }}/g" \
               -i "s/secret/taskdb/g" \
