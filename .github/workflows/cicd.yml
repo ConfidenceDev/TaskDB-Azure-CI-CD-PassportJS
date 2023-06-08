@@ -25,14 +25,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Build and Push Docker Image
-        uses: mr-smithers-excellent/docker-build-push@v6
-        with:
-          image: confidencedev/taskdb
-          tags: latest
-          registry: docker.io
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+      # - name: Build and Push Docker Image
+      #   uses: mr-smithers-excellent/docker-build-push@v6
+      #   with:
+      #     image: confidencedev/taskdb
+      #     tags: latest
+      #     registry: docker.io
+      #     username: ${{ secrets.DOCKER_USERNAME }}
+      #     password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Install Azure CLI
         run: |
@@ -56,13 +56,14 @@ jobs:
           do
               value=$(az keyvault secret show --name "$secret" --vault-name "taskdbstore" --query "value" --output tsv)
               echo "Secret: $secret, Value: $value"
-              # Set the retrieved secret as an environment variable
-              echo "::set-env name=$secret::$value"
+              echo "$secret=$value" >> $GITHUB_ENV
           done
 
       - name: Use Secrets
         run: |
           echo "DB Host: ${{ env.DB-HOST }}"
+          echo "DB Host: ${{ env.DB-USERNAME }}"
+          echo "DB Host: ${{ env.DB-PASSWORD }}"
 
       # az keyvault secret show --name "DB-HOST" --vault-name "taskdbstore" --query "value" --output tsv
       # - name: Apply Kubernetes Deployment
