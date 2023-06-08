@@ -1,20 +1,21 @@
-/*const {
+const {
   DB_NAME,
   DB_USERNAME,
   DB_PASSWORD,
   DB_HOST,
   DB_DIALECT,
-} = require("../configs/config");*/
+} = require("../configs/config");
 const Sequelize = require("sequelize");
 
 // Create a new Sequelize instance
 const sequelize = new Sequelize(
-  process.env.dbname,
-  process.env.dbusername,
-  process.env.dbpassword,
+  "taskdb",
+  "taskadmin@taskdbsvr",
+  "Wondaful@17",
   {
-    host: process.env.dbhost,
-    dialect: process.env.dbdialect,
+    host: "taskdbsvr.postgres.database.azure.com",
+    port: 5432,
+    dialect: "postgres",
     dialectOptions: {
       ssl: {
         require: true,
