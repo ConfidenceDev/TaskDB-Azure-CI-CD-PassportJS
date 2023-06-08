@@ -1,6 +1,6 @@
 # TaskDB-Azure-CI-CD-PassportJS
 
-A task to manage social logins with passportjs and run on azure aks with azure postgresql for the database
+A project to store user details with social logins implementation using passportjs, and deploy to azure kubernetes cluster using azure sql (PostgreSQL) for the database and azure key vault to store sensitive data (environment variables).
 
 ## Table of Contents
 
@@ -8,7 +8,6 @@ A task to manage social logins with passportjs and run on azure aks with azure p
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Running the Application](#running-the-application)
-- [Deployment to AKS](#deployment-to-aks)
 - [ToDo](#todo)
 - [Appreciation](#appreciation)
 - [License](#license)
@@ -98,18 +97,6 @@ Workflow is required to automate builds and deployment and fetching azure key va
 
 1. Head over to your azure dashboard, kubernetes services, select your cluster.
 2. Select services and ingres, then find the external ip address of your service and load.
-
-## Deployment to AKS
-
-Explain how to deploy the application to an Azure Kubernetes Service (AKS) cluster. For example:
-
-1. Log in to Azure CLI: `az login`
-2. Set the subscription: `az account set --subscription <subscription_id>`
-3. Create a resource group for AKS: `az group create --name myResourceGroup --location eastus`
-4. Create the AKS cluster: `az aks create --resource-group myResourceGroup --name myAKSCluster --node-count 3 --generate-ssh-keys`
-5. Get the AKS credentials: `az aks get-credentials --resource-group myResourceGroup --name myAKSCluster`
-6. Verify the cluster connection: `kubectl get nodes`
-7. Deploy the application: `kubectl apply -f deployment.yaml`
 
 ## ToDo
 
