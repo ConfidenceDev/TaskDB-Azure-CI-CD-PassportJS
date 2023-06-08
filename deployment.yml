@@ -38,7 +38,7 @@ spec:
             - name: dbusername
               value: db-username
             - name: dbpassword
-              value: db-password
+              value: Wondaful@17
             - name: dbhost
               value: db-host
             - name: dbdialect
