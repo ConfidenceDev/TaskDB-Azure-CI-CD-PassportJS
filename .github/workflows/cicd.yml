@@ -50,22 +50,37 @@ jobs:
       - name: Install kubectl cli
         run: |
           sudo az aks install-cli
-          secrets=("DB-HOST" "DB-USERNAME" "DB-PASSWORD")
+          secrets=("GOOGLE-CLIENT-ID" "GOOGLE-CLIENT-SECRET" "GITHUB-CLIENT-ID" "GITHUB-CLIENT-SECRET" "SESSION-SECRET" "DB-NAME" "DB-USERNAME" "DB-PASSWORD" "DB-HOST" "DB-DIALECT")
 
           for secret in "${secrets[@]}"
           do
               value=$(az keyvault secret show --name "$secret" --vault-name "taskdbstore" --query "value" --output tsv)
-              echo "Secret: $secret, Value: $value"
               echo "$secret=$value" >> $GITHUB_ENV
           done
 
       - name: Use Secrets
         run: |
-          echo "DB Host: ${{ env.DB-HOST }}"
+          echo "DB Host: ${{ env.GOOGLE-CLIENT-ID }}"
+          echo "DB Host: ${{ env.GOOGLE-CLIENT-SECRET }}"
+          echo "DB Host: ${{ env.GITHUB-CLIENT-ID }}"
+          echo "DB Host: ${{ env.GITHUB-CLIENT-SECRET }}"
+          echo "DB Host: ${{ env.SESSION-SECRET }}"
+          echo "DB Host: ${{ env.DB-NAME }}"
           echo "DB Host: ${{ env.DB-USERNAME }}"
           echo "DB Host: ${{ env.DB-PASSWORD }}"
+          echo "DB Host: ${{ env.DB-HOST }}"
+          echo "DB Host: ${{ env.DB-DIALECT }}"
 
-      # az keyvault secret show --name "DB-HOST" --vault-name "taskdbstore" --query "value" --output tsv
-      # - name: Apply Kubernetes Deployment
+      # - name: Apply Secrets Deploy to Kubernetes
       #   run: |
-      #     kubectl apply -f deployment.yml
+      #     sed -e "s/${{ env.GOOGLE-CLIENT-ID }}/${GOOGLE_CLIENT_ID}/g" \
+      #         -e "s/${{ env.GOOGLE-CLIENT-SECRET }}/${GOOGLE_CLIENT_SECRET}/g" \
+      #         -e "s/${{ env.GITHUB-CLIENT-ID }}/${GITHUB-CLIENT-ID}/g" \
+      #         -e "s/${{ env.GITHUB-CLIENT-SECRET }}/${GITHUB-CLIENT-SECRET}/g" \
+      #         -e "s/${{ env.SESSION-SECRET }}/${SESSION-SECRET}/g" \
+      #         -e "s/${{ env.DB-NAME }}/${DB-NAME}/g" \
+      #         -e "s/${{ env.DB-USERNAME }}/${DB-USERNAME}/g" \
+      #         -e "s/${{ env.DB-PASSWORD }}/${DB-PASSWORD}/g" \
+      #         -e "s/${{ env.DB-HOST }}/${DB-HOST}/g" \
+      #         -e "s/${{ env.DB-DIALECT }}/${DB-DIALECT}/g" \
+      #         k8s/deployment.yaml | kubectl apply -f -
