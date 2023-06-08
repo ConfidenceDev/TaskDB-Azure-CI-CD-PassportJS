@@ -70,4 +70,4 @@ jobs:
               -e "s/${{ env.DB-PASSWORD }}/${DB-PASSWORD}/g" \
               -e "s/${{ env.DB-HOST }}/${DB-HOST}/g" \
               -e "s/${{ env.DB-DIALECT }}/${DB-DIALECT}/g" \
-              deployment.yaml | kubectl apply -f -
+              deployment.yml | kubectl apply -f -
