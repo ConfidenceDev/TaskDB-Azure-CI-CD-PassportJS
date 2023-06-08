@@ -50,8 +50,21 @@ jobs:
       - name: Install kubectl cli
         run: |
           sudo az aks install-cli
-          az keyvault secret show --name "DB-HOST" --vault-name "taskdbstore" --query "value" --output tsv
+          secrets=("DB-HOST" "DB-USERNAME" "DB-PASSWORD")
 
+          for secret in "${secrets[@]}"
+          do
+              value=$(az keyvault secret show --name "$secret" --vault-name "taskdbstore" --query "value" --output tsv)
+              echo "Secret: $secret, Value: $value"
+              # Set the retrieved secret as an environment variable
+              echo "::set-env name=$secret::$value"
+          done
+
+      - name: Use Secrets
+        run: |
+          echo "DB Host: ${{ env.DB-HOST }}"
+
+      # az keyvault secret show --name "DB-HOST" --vault-name "taskdbstore" --query "value" --output tsv
       # - name: Apply Kubernetes Deployment
       #   run: |
       #     kubectl apply -f deployment.yml
