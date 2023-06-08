@@ -73,5 +73,5 @@ jobs:
 
       - name: Replace placeholder set names
         run: |
-          sed -i "s/secret-app/taskdb-app/g" deployment.yaml
-          sed -i "s/secret-svc/taskdb-svc/g" service.yaml
+          sed -i "s/secret-app/taskdb-app/g" deployment.yml
+          sed -i "s/secret-svc/taskdb-svc/g" deployment.yml
