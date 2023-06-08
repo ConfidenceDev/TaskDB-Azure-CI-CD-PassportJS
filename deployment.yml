@@ -24,25 +24,23 @@ spec:
               cpu: "500m"
           env:
             - name: googleclientid
-              value: "{{google-client-id}}"
+              value: google-client-id
             - name: googleclientsecret
-              value: "{{google-client-secret}}"
+              value: google-client-secret
             - name: githubclientid
-              value: "{{github-client-id}}"
+              value: github-client-id
             - name: githubclientsecret
-              value: "{{github-client-secret}}"
+              value: github-client-secret
             - name: sessionsecret
-              value: "{{session-secret}}"
+              value: session-secret
             - name: dbname
-              value: "{{db-name}}"
+              value: db-name
             - name: dbusername
-              value: "{{db-username}}"
-            - name: dbpassowrd
-              value: "{{db-passowrd}}"
+              value: db-passowrd
             - name: dbhost
-              value: dbhost
+              value: db-host
             - name: dbdialect
-              value: dbdialect
+              value: postgres
 ---
 apiVersion: v1
 kind: Service
